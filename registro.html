@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crear cuenta · füel.</title>
+<meta name="description" content="Guardá tus datos y gestioná tu suscripción en un solo lugar.">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="registro">
+<div id="site-header"></div>
+<main class="auth">
+  <div class="auth__visual" style="background-image:url('img/login-bg.jpg')"><h2>La forma más simple de comer bien todos los días.</h2></div>
+  <div class="auth__form">
+    <form class="auth__box" id="form">
+      <div style="display:flex; flex-direction:column; gap:10px"><h1 style="font-size:36px; letter-spacing:-.03em">Creá tu cuenta</h1><p class="muted">Guardá tus datos y gestioná tu suscripción en un solo lugar.</p></div>
+      <p class="form-msg form-msg--error" id="msg" role="alert" hidden></p>
+      <div class="fields" style="grid-template-columns:1fr 1fr"><div class="field field--half"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" data-rules="required" autocomplete="given-name"></div><div class="field field--half"><label for="apellido">Apellido</label><input id="apellido" name="apellido" type="text" data-rules="required" autocomplete="family-name"></div></div><div class="field"><label for="email">Email</label><input id="email" name="email" type="email" data-rules="required email" autocomplete="email" placeholder="tu@mail.com"></div><div class="field"><label for="password">Contraseña</label><input id="password" name="password" type="password" data-rules="password" autocomplete="new-password" placeholder="Al menos 8 caracteres"></div>
+      <button type="submit" class="btn btn--primary btn--lg" style="width:100%">Crear cuenta</button>
+      <p class="muted" style="text-align:center; font-size:15px">¿Ya tenés cuenta? <a href="login.html" style="color:var(--fuel-olive); font-weight:600">Ingresá</a></p>
+    </form>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/forms.js"></script>
+<script>
+if (Store.get('user')) location.replace('panel.html');
+const form = document.getElementById('form'), msg = document.getElementById('msg');
+Forms.bind(form, d => {
+  const key = d.email.trim().toLowerCase(), accs = Store.get('accounts') || {};
+  if (accs[key]) { msg.hidden = false; msg.textContent = 'Ya hay una cuenta con ese email. Ingresá con tu contraseña.'; return; }
+  const user = { nombre: d.nombre.trim(), apellido: d.apellido.trim(), email: key };
+  accs[key] = { password: d.password, user }; Store.set('accounts', accs); Store.set('user', user);
+  location.href = Store.totals().complete ? 'entrega.html' : 'panel.html';
+});
+</script>
+</body>
+</html>

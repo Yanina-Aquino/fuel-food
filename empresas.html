@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedidos para empresas · füel.</title>
+<meta name="description" content="Viandas saludables para equipos y oficinas.">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="empresas">
+<div id="site-header"></div>
+<main class="container">
+  <div class="page-head"><span class="overline">Para empresas</span><h1>Comida real para tu equipo</h1><p>Cajas semanales para oficinas y equipos híbridos, con facturación mensual y un solo contacto.</p></div>
+  <div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+    <div style="display:flex; flex-direction:column; gap:24px">
+      <img src="img/empresas.jpg" alt="Cajas de füel. en una oficina" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:var(--radius-xl)">
+      <div class="steps" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="step" style="padding:24px 20px"><span class="step__num" style="font-size:32px">20+</span><p class="muted">viandas por semana como mínimo</p></div>
+        <div class="step" style="padding:24px 20px"><span class="step__num" style="font-size:32px">1</span><p class="muted">factura mensual con todo el detalle</p></div>
+        <div class="step" style="padding:24px 20px"><span class="step__num" style="font-size:32px">48 h</span><p class="muted">para sumar o quitar personas</p></div>
+      </div>
+    </div>
+    <form class="card" name="empresas" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="form">
+      <input type="hidden" name="form-name" value="empresas"><p hidden aria-hidden="true"><label>No completar <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <h2>Pedí una propuesta</h2>
+      <div class="fields"><div class="field"><label for="nombre">Tu nombre</label><input id="nombre" name="nombre" type="text" data-rules="required" autocomplete="name"></div><div class="field"><label for="empresa">Empresa</label><input id="empresa" name="empresa" type="text" data-rules="required" autocomplete="organization"></div><div class="field field--6"><label for="email">Email</label><input id="email" name="email" type="email" data-rules="required email" autocomplete="email"></div><div class="field"><label for="personas">Personas en el equipo</label><input id="personas" name="personas" type="text" data-rules="required" placeholder="25" inputmode="numeric"></div><div class="field"><label for="telefono">Teléfono <span class="optional">(opcional)</span></label><input id="telefono" name="telefono" type="tel" data-optional autocomplete="tel"></div><div class="field field--6"><label for="mensaje">Contanos qué necesitás <span class="optional">(opcional)</span></label><textarea id="mensaje" name="mensaje" rows="5"></textarea></div></div>
+      <p class="note" data-ok tabindex="-1" role="status" hidden>Gracias. Te mandamos una propuesta en las próximas 48 horas hábiles.</p>
+      <p class="form-msg form-msg--error" data-err role="alert" hidden>No pudimos enviarlo. Revisá tu conexión y probá de nuevo, o escribinos a hola@fuel.com.ar.</p>
+      <button type="submit" class="btn btn--primary btn--lg">Pedir propuesta</button>
+    </form>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/send.js"></script>
+<script>
+bindSend(document.getElementById('form'));
+</script>
+</body>
+</html>

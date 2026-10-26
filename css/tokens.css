@@ -1,0 +1,27 @@
+/* füel. · design tokens — mismos nombres que en Figma */
+:root {
+  --fuel-matcha: #9EBC42;
+  --fuel-olive: #4A5B17;
+  --fuel-cream: #FBF9F6;
+  --fuel-ink: #22251A;
+  --fuel-white: #FFFFFF;
+  --fuel-sand: #EFECE4;
+  --fuel-border: #ECE9E2;
+  --fuel-border-strong: #D9D4C8;
+  --fuel-muted: #585D4C;
+  --fuel-matcha-050: #E9F1CE;
+  --fuel-error: #9B3D2F;
+
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px;
+  --space-16: 64px; --space-24: 96px;
+
+  --radius-sm: 12px; --radius-md: 16px; --radius-lg: 24px; --radius-xl: 28px; --radius-pill: 999px;
+  --shadow-card: 0 24px 60px rgba(34, 37, 26, 0.12);
+
+  --container: 1200px;
+  --gutter: clamp(20px, 6vw, 120px);
+}

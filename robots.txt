@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /panel.html
+Disallow: /pago.html
+Disallow: /confirmacion.html

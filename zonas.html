@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zonas de entrega · füel.</title>
+<meta name="description" content="Zonas, días y horarios de entrega en CABA y GBA.">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="zonas">
+<div id="site-header"></div>
+<main class="container">
+  <div class="page-head"><span class="overline">Zonas de entrega</span><h1>¿Llegamos a tu casa?</h1><p>Entregamos en CABA y en 24 partidos del GBA, martes y viernes, en franjas de cuatro horas.</p></div>
+  <div class="split" style="grid-template-columns:minmax(0,1fr) 440px">
+    <div style="display:flex; flex-direction:column; gap:24px">
+      <form class="card" id="cp-form" novalidate>
+        <h2>Consultá tu código postal</h2>
+        <div style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap">
+          <div class="field" style="flex:1; min-width:200px"><label for="cp">Código postal</label><input id="cp" name="cp" inputmode="numeric" placeholder="1414" maxlength="8" autocomplete="postal-code"></div>
+          <button class="btn btn--primary" type="submit" style="min-height:54px">Consultar</button>
+        </div>
+        <p id="cp-res" role="status" hidden></p>
+      </form>
+      <div class="card"><h2>Dónde y cuándo</h2><div id="zonas-list" style="display:flex; flex-direction:column"></div></div>
+    </div>
+    <img src="img/mapa.jpg" alt="Mapa de cobertura de entregas en el AMBA" style="width:100%; border-radius:var(--radius-xl); border:1px solid var(--fuel-border)">
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script>
+const list = document.getElementById('zonas-list');
+list.innerHTML = FUEL.zones.map((z, i) => '<div class="row" style="padding:16px 0;' + (i ? ' border-top:1px solid var(--fuel-border)' : '') + '"><span><strong>' + z.name + '</strong><br><span class="muted" style="font-size:14px">' + z.areas + '</span></span><span class="mono" style="color:var(--fuel-olive); white-space:nowrap">' + z.days + '</span></div>').join('');
+document.getElementById('cp-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = parseInt(document.getElementById('cp').value.replace(/\D/g, ''), 10), res = document.getElementById('cp-res');
+  res.hidden = false;
+  if (!n) { res.className = 'form-msg form-msg--error'; res.textContent = 'Ingresá un código postal de 4 números, por ejemplo 1414.'; return; }
+  const z = FUEL.zones.find(z => z.cp.some(([a, b]) => n >= a && n <= b));
+  if (z) { res.className = 'note'; res.innerHTML = 'Sí, llegamos. Tu zona es <strong>' + z.name + '</strong> y entregamos ' + z.days.toLowerCase() + '. <a href="armar.html" style="font-weight:600; text-decoration:underline">Armá tu caja</a>'; }
+  else { res.className = 'form-msg form-msg--error'; res.innerHTML = 'Todavía no llegamos a ese código postal. <a href="contacto.html" style="font-weight:600; text-decoration:underline">Avisanos</a> y te escribimos cuando abramos tu zona.'; }
+});
+</script>
+</body>
+</html>

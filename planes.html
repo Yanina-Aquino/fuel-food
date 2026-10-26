@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planes y precios · füel.</title>
+<meta name="description" content="Elegí tu plan de viandas semanales. Pausás o cancelás cuando quieras.">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="planes">
+<div id="site-header"></div>
+<main class="container">
+  <div class="page-head page-head--center"><span class="overline">Planes y precios</span><h1>Elegí tu plan. Cancelá cuando quieras.</h1><p>Ahorrá tiempo y dinero con tu caja semanal. Sin compromisos a largo plazo.</p></div>
+  <div class="plans">
+    <article class="plan">
+      <div style="display:flex; flex-direction:column; gap:8px"><span class="overline">6 viandas</span><h2 style="font-size:28px; letter-spacing:-.02em">Plan Medio</h2><p class="muted">Para probar sin comprometer la semana.</p></div>
+      <div class="plan__price"><strong>$4.600</strong><span class="muted">/ vianda</span></div>
+      <ul><li>Ideal para probar el servicio</li><li>Menú rotativo semanal</li><li>Envío en frío: $2.400</li></ul>
+      <a href="armar.html?plan=6" class="btn btn--ghost">Elegir plan</a></article>
+    <article class="plan plan--hl"><span class="plan__badge">El más elegido</span>
+      <div style="display:flex; flex-direction:column; gap:8px"><span class="overline">12 viandas</span><h2 style="font-size:28px; letter-spacing:-.02em">Plan Completo</h2><p class="muted">Almuerzos y cenas de toda la semana.</p></div>
+      <div class="plan__price"><strong>$4.200</strong><span class="muted">/ vianda</span></div>
+      <ul><li>Almuerzos y cenas resueltos</li><li>Menú rotativo semanal</li><li>Envío en frío sin cargo</li></ul>
+      <a href="armar.html?plan=12" class="btn btn--primary btn--lg">Elegir plan</a></article>
+    <article class="plan">
+      <div style="display:flex; flex-direction:column; gap:8px"><span class="overline">18 viandas</span><h2 style="font-size:28px; letter-spacing:-.02em">Plan Parejas</h2><p class="muted">Dos personas, un solo pedido.</p></div>
+      <div class="plan__price"><strong>$3.900</strong><span class="muted">/ vianda</span></div>
+      <ul><li>El precio por vianda más bajo</li><li>Menú rotativo semanal</li><li>Envío en frío sin cargo</li></ul>
+      <a href="armar.html?plan=18" class="btn btn--ghost">Elegir plan</a></article>
+  </div>
+  <p class="muted" style="text-align:center; padding-bottom:96px">Todos los planes tienen los mismos platos. Cambiás de plan desde tu panel, sin costo.</p>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+</body>
+</html>

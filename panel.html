@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi panel · füel.</title>
+<meta name="description" content="Gestioná tu suscripción, tus pedidos y tus datos.">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="panel">
+<div id="site-header"></div>
+<main class="container">
+  <div class="dash">
+    <nav class="dash__nav" role="tablist" aria-label="Mi cuenta">
+      <button role="tab" data-tab="sub" aria-selected="true">Mi suscripción</button>
+      <button role="tab" data-tab="orders" aria-selected="false">Historial de pedidos</button>
+      <button role="tab" data-tab="data" aria-selected="false">Mis datos</button>
+      <button type="button" id="logout" style="color:var(--fuel-muted)">Cerrar sesión</button>
+    </nav>
+    <div id="view" style="display:flex; flex-direction:column; gap:24px"></div>
+  </div>
+</main>
+<dialog class="modal" id="confirm" style="width:min(480px, calc(100% - 32px))">
+  <div class="modal__body">
+    <h2 style="font-size:24px; letter-spacing:-.02em">¿Cancelás la suscripción?</h2>
+    <p class="muted">Tu próxima caja no se va a preparar ni cobrar. Si solo necesitás un descanso, podés pausar una semana.</p>
+    <div style="display:flex; flex-wrap:wrap; gap:12px">
+      <button type="button" class="btn btn--primary" data-act="pause">Pausar una semana</button>
+      <button type="button" class="btn btn--ghost" data-act="cancel-ok">Cancelar igual</button>
+    </div>
+  </div>
+</dialog>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/forms.js"></script>
+<script>
+(() => {
+  const user = Store.get('user');
+  if (!user) { location.replace('login.html'); return; }
+  const view = document.getElementById('view'), dlg = document.getElementById('confirm');
+  const arrow = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h15"/><path d="m13.5 6 6 6-6 6"/></svg>';
+  const STATUS = { active: ['status--active', 'Suscripción activa'], paused: ['status--paused', 'Pausada esta semana'], cancelled: ['status--cancelled', 'Cancelada'] };
+  let tab = 'sub';
+
+  const sub = () => {
+    const s = Store.get('subscription');
+    if (!s) return `<h1 style="font-size:40px; letter-spacing:-.03em">Hola, ${user.nombre}</h1>
+      <section class="card" style="align-items:flex-start"><h2>Todavía no tenés una caja</h2><p class="muted">Elegí tu plan y tus platos. Lo gestionás todo desde acá.</p><a href="armar.html" class="btn btn--primary btn--lg">Armá tu caja ${arrow}</a></section>`;
+    const [cls, label] = STATUS[s.status];
+    const ids = Object.entries(s.items).flatMap(([id, q]) => Array(q).fill(id));
+    const shown = [...new Set(ids)].slice(0, 5);
+    return `<div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px"><h1 style="font-size:40px; letter-spacing:-.03em">Hola, ${user.nombre}</h1><span class="status ${cls}">${label}</span></div>
+      <section class="card">
+        <span class="overline">${s.status === 'cancelled' ? 'Sin entregas programadas' : 'Próxima entrega'}</span>
+        <h2 style="font-size:30px; letter-spacing:-.025em">${s.status === 'active' ? 'Tu próxima caja llega el ' + s.dia.toLowerCase() : s.status === 'paused' ? 'Esta semana no hay caja' : 'Tu suscripción está cancelada'}</h2>
+        ${s.status === 'active' ? `<p class="muted">${s.franja} · ${s.size} viandas · editable hasta el domingo 20 h</p>` : ''}
+        <div class="thumbs">${shown.map(id => { const d = FUEL.dishes.find(x => x.id === id); return `<img src="${d.img}" alt="${d.name}">`; }).join('')}${ids.length > shown.length ? `<span>+${ids.length - shown.length}</span>` : ''}</div>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; padding-top:20px; border-top:1px solid var(--fuel-border)">
+          ${s.status === 'cancelled' ? `<button class="btn btn--primary btn--lg" data-act="resume">Reactivar suscripción</button>`
+            : `<a href="armar.html" class="btn btn--primary btn--lg" data-act="edit">Modificar platos ${arrow}</a>`}
+        </div>
+      </section>
+      ${s.status === 'cancelled' ? '' : `<section class="card" style="background:var(--fuel-sand); border:0">
+        <h2>Gestión de suscripción</h2>
+        <p style="color:#3F4335">Pausá tu plan si te vas de viaje, o cancelá en cualquier momento sin cargos extra. Los cambios aplican desde la próxima caja.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px">
+          ${s.status === 'paused' ? '<button class="btn btn--ghost" data-act="resume">Reanudar entregas</button>' : '<button class="btn btn--ghost" data-act="pause">Pausar una semana</button>'}
+          <button class="btn btn--ghost" data-act="cancel" style="border-color:var(--fuel-border-strong); color:var(--fuel-muted)">Cancelar suscripción</button>
+        </div></section>`}`;
+  };
+
+  const orders = () => {
+    const list = Store.get('orders') || [];
+    return `<h1 style="font-size:40px; letter-spacing:-.03em">Historial de pedidos</h1><p class="muted">Tus cajas anteriores y sus comprobantes.</p>
+      ${list.length ? list.map(o => `<div class="order"><div><strong>${new Date(o.date).toLocaleDateString('es-AR', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</strong><br><span class="mono muted">Orden #${o.id}</span></div>
+        <span class="status ${o.status === 'preparing' ? 'status--paused' : 'status--active'}">${o.status === 'preparing' ? 'En preparación' : 'Entregado'}</span>
+        <strong>${Store.money(o.total)}</strong></div>`).join('')
+        : '<section class="card" style="align-items:center; text-align:center"><h2>Todavía no hiciste pedidos</h2><p class="muted">Cuando confirmes tu primera caja, la vas a ver acá.</p><a href="armar.html" class="btn btn--primary">Armá tu caja</a></section>'}`;
+  };
+
+  const data = () => `<h1 style="font-size:40px; letter-spacing:-.03em">Mis datos</h1>
+    <form class="card" id="dataForm"><div class="fields">
+      <div class="field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" data-rules="required" autocomplete="given-name"></div>
+      <div class="field"><label for="apellido">Apellido</label><input id="apellido" name="apellido" data-rules="required" autocomplete="family-name"></div>
+      <div class="field field--6"><label for="email">Email</label><input id="email" name="email" type="email" data-rules="required email" autocomplete="email"></div>
+    </div><p class="note" id="saved" hidden>Listo, guardamos tus cambios.</p>
+    <div style="display:flex; justify-content:flex-end"><button class="btn btn--primary" type="submit">Guardar cambios</button></div></form>`;
+
+  const render = () => {
+    document.querySelectorAll('[data-tab]').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+    view.innerHTML = { sub, orders, data }[tab]();
+    if (tab === 'data') { const f = document.getElementById('dataForm'); Forms.fill(f, Store.get('user'));
+      Forms.bind(f, d => { Store.set('user', { ...Store.get('user'), ...d }); document.getElementById('saved').hidden = false; }); }
+  };
+
+  const setStatus = st => { const s = Store.get('subscription'); s.status = st; Store.set('subscription', s); dlg.close(); render(); };
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-tab]'); if (t) { tab = t.dataset.tab; render(); return; }
+    const a = e.target.closest('[data-act]'); if (!a) return;
+    const act = a.dataset.act;
+    if (act === 'edit') { const s = Store.get('subscription'); Store.saveCart({ size: s.size, items: { ...s.items } }); }
+    if (act === 'pause') setStatus('paused');
+    if (act === 'resume') setStatus('active');
+    if (act === 'cancel') dlg.showModal();
+    if (act === 'cancel-ok') setStatus('cancelled');
+  });
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  document.getElementById('logout').addEventListener('click', () => { Store.clear('user'); location.href = 'index.html'; });
+  render();
+})();
+</script>
+</body>
+</html>

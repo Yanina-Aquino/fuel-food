@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menú de la semana · füel.</title>
+<meta name="description" content="Los platos de esta semana: plant-based, sin TACC, con información nutricional completa.">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="menu">
+<div id="site-header"></div>
+<main class="container">
+  <div class="page-head page-head--center">
+    <span class="overline">Menú de la semana</span>
+    <h1>Platos que cambian tu semana</h1>
+    <p>Comida real, plant-based y sin TACC. Mirá la rotación actual y elegí tus favoritos.</p>
+  </div>
+  <div class="chips" role="group" aria-label="Filtrar platos" style="justify-content:center; margin-bottom:40px" id="filters"></div>
+  <div class="grid-dishes" id="grid" aria-live="polite"></div>
+
+  <section class="banner" style="padding:96px 0">
+    <div class="banner__box">
+      <div><h2>¿Viste algo que te gusta?</h2><p>Elegí tu plan y armá la caja con los platos que quieras.</p></div>
+      <a href="armar.html" class="btn btn--ink btn--lg">Armá tu caja ahora</a>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/dishes.js"></script>
+<script>
+  const FILTERS = [['todos', 'Todos'], ['bajo-carbos', 'Bajo en carbos'], ['alto-proteina', 'Alto en proteína'], ['sin-tacc', 'Sin TACC']];
+  let active = 'todos';
+  const fEl = document.getElementById('filters'), grid = document.getElementById('grid');
+  const render = () => {
+    fEl.innerHTML = FILTERS.map(([id, l]) => `<button type="button" class="chip" aria-pressed="${id === active}" data-f="${id}">${l}</button>`).join('');
+    const list = FUEL.dishes.filter(d => active === 'todos' || d.tags.includes(active));
+    grid.innerHTML = list.length ? list.map(d => Dishes.card(d)).join('') : '<p class="empty">No hay platos con este filtro esta semana.</p>';
+  };
+  fEl.addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (b) { active = b.dataset.f; render(); if (window.Motion) Motion.reveal(grid); } });
+  grid.addEventListener('click', e => {
+    const b = e.target.closest('[data-detail]'); if (!b) return;
+    Dishes.open(b.dataset.detail, () => `<a href="armar.html" class="btn btn--primary" style="width:100%">Armá tu caja</a>`);
+  });
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedido confirmado · füel.</title>
+<meta name="description" content="Tu pedido fue confirmado.">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="confirmacion">
+<div id="site-header"></div>
+<main class="container" style="display:flex; flex-direction:column; align-items:center; gap:48px; padding-top:96px; padding-bottom:112px; text-align:center">
+  <div style="display:flex; flex-direction:column; align-items:center; gap:24px; max-width:640px">
+    <span class="check-pop" style="width:88px; height:88px; border-radius:50%; background:var(--fuel-matcha); display:flex; align-items:center; justify-content:center"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#FBF9F6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+    <h1 style="font-size:clamp(36px,5vw,56px); line-height:1.04; letter-spacing:-.035em">Tu semana está resuelta</h1>
+    <p class="muted" style="font-size:18px">Ya estamos preparando tu caja. Te mandamos el detalle a <strong id="c-email"></strong>.</p>
+  </div>
+  <section class="card" style="width:100%; max-width:600px; text-align:left; gap:0; padding:0; overflow:hidden">
+    <div class="row" style="padding:24px 28px; border-bottom:1px solid var(--fuel-border)"><span><span class="overline">Orden</span><br><strong id="c-orden" style="font-size:22px"></strong></span><span style="text-align:right"><span class="overline">Total pagado</span><br><strong id="c-total" style="font-size:24px"></strong></span></div>
+    <div style="display:flex; flex-direction:column; gap:20px; padding:28px">
+      <div><span class="muted" style="font-size:14px">Llega el</span><br><strong id="c-dia"></strong></div>
+      <div><span class="muted" style="font-size:14px">Dirección</span><br><strong id="c-dir"></strong></div>
+      <div><span class="muted" style="font-size:14px">Caja</span><br><strong id="c-caja"></strong></div>
+    </div>
+  </section>
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px"><a href="panel.html" class="btn btn--primary btn--lg">Ir a mi panel <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h15"/><path d="m13.5 6 6 6-6 6"/></svg></a><button type="button" class="btn btn--ghost btn--lg" onclick="window.print()">Descargar comprobante</button></div>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script>
+const o = Store.get('lastOrder');
+if (!o) location.replace('index.html');
+else {
+  const e = o.entrega;
+  document.getElementById('c-email').textContent = e.email;
+  document.getElementById('c-orden').textContent = '#' + o.id;
+  document.getElementById('c-total').textContent = Store.money(o.total);
+  document.getElementById('c-dia').textContent = e.dia + ' · ' + e.franja;
+  document.getElementById('c-dir').textContent = e.calle + ' ' + e.altura + (e.piso ? ', ' + e.piso : '') + ' · ' + e.localidad;
+  document.getElementById('c-caja').textContent = o.n + ' viandas · ' + FUEL.plans[o.size].name;
+}
+</script>
+</body>
+</html>

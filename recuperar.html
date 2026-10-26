@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recuperar contraseña · füel.</title>
+<meta name="description" content="Recuperá el acceso a tu cuenta.">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="recuperar">
+<div id="site-header"></div>
+<main class="container" style="display:flex; justify-content:center; padding:96px var(--gutter) 120px">
+  <form class="auth__box" name="recuperar" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="form">
+    <input type="hidden" name="form-name" value="recuperar"><p hidden aria-hidden="true"><label>No completar <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+    <div style="display:flex; flex-direction:column; gap:10px"><span class="overline">Tu cuenta</span><h1 style="font-size:36px; letter-spacing:-.03em">Recuperá tu contraseña</h1><p class="muted">Ingresá el email con el que te registraste y te mandamos cómo volver a entrar.</p></div>
+    <div class="fields" style="grid-template-columns:1fr"><div class="field field--6"><label for="email">Email</label><input id="email" name="email" type="email" data-rules="required email" autocomplete="email" placeholder="tu@mail.com"></div></div>
+    <p class="note" data-ok tabindex="-1" role="status" hidden>Listo. Si ese email tiene una cuenta, te escribimos en el día con los pasos para entrar.</p>
+      <p class="form-msg form-msg--error" data-err role="alert" hidden>No pudimos enviarlo. Revisá tu conexión y probá de nuevo, o escribinos a hola@fuel.com.ar.</p>
+    <button type="submit" class="btn btn--primary btn--lg" style="width:100%">Enviar</button>
+    <a href="login.html" class="back" style="margin-top:0">Volver a ingresar</a>
+  </form>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/send.js"></script>
+<script>
+bindSend(document.getElementById('form'));
+</script>
+</body>
+</html>

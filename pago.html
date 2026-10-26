@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pago · füel.</title>
+<meta name="description" content="Pagá tu caja de forma segura.">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="pago" data-step="3">
+<div id="site-header"></div>
+<main class="container">
+  <div class="page-head"><span class="overline">Paso 3 de 3 · Pago</span><h1>Estás a un paso de resolver tu semana</h1><p>Se cobra una sola vez, hoy. Si algo no te gusta, escribinos dentro de las 48 h y te devolvemos el importe.</p></div>
+  <div class="split">
+    <form id="form">
+      <section class="card"><h2>Cómo querés pagar</h2>
+        <div class="choices"><label class="choice"><input type="radio" name="metodo" value="tarjeta" checked><span><strong>Tarjeta</strong><small>crédito o débito · hasta 3 cuotas</small></span><span class="tick"></span></label><label class="choice"><input type="radio" name="metodo" value="billetera"><span><strong>Billetera virtual</strong><small>saldo o QR</small></span><span class="tick"></span></label></div></section>
+      <section class="card" id="card-fields"><h2>Datos de la tarjeta</h2>
+        <div class="fields"><div class="field field--6"><label for="numero">Número de tarjeta</label><input id="numero" name="numero" type="text" data-rules="card" autocomplete="cc-number" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19"></div><div class="field field--half"><label for="vence">Vencimiento</label><input id="vence" name="vence" type="text" data-rules="exp" autocomplete="cc-exp" placeholder="MM / AA" inputmode="numeric" maxlength="7"></div><div class="field field--half"><label for="cvc">CVC</label><input id="cvc" name="cvc" type="text" data-rules="cvc" autocomplete="cc-csc" placeholder="123" inputmode="numeric" maxlength="4"></div><div class="field field--6"><label for="titular">Nombre como figura en la tarjeta</label><input id="titular" name="titular" type="text" data-rules="required" autocomplete="cc-name"></div></div>
+        <p class="note">Los datos viajan encriptados y los procesa la pasarela de pago. Nunca guardamos el número ni el CVC.</p></section>
+      <section class="card" id="wallet-fields" hidden><h2>Billetera virtual</h2><p class="muted">Al confirmar te llevamos a tu billetera para autorizar el pago y volvés acá.</p></section>
+      <a href="entrega.html" class="back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12h-15"/><path d="m10.5 6-6 6 6 6"/></svg>Volver a los datos de entrega</a>
+    </form>
+    <aside class="summary" id="summary"></aside>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>
