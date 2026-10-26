@@ -2,6 +2,7 @@
 (() => {
   const LOGO = (fill, dots) => `<svg viewBox="0 0 196 112" role="img" aria-label="füel."><text x="8" y="100" font-family="Outfit, sans-serif" font-size="100" font-weight="600" letter-spacing="-4" fill="${fill}">fuel</text><circle cx="63.4" cy="37" r="6" fill="${dots}"/><circle cx="81.4" cy="37" r="6" fill="${dots}"/><circle cx="178" cy="90" r="10" fill="${dots}"/></svg>`;
   const page = document.body.dataset.page || '';
+  const L = (window.FUEL && FUEL.legal) || {};
   const user = Store.get('user');
   const n = Store.count();
 
@@ -40,7 +41,10 @@
           <form class="newsletter" data-newsletter><label for="nl" class="sr-only">Email</label><input id="nl" type="email" placeholder="tu@mail.com" required><button class="btn btn--primary" type="submit">Suscribirme</button></form>
           <p class="newsletter-ok" hidden>Listo, te escribimos el próximo lunes.</p></div>
       </div>
-      <div class="footer-bottom"><span>© 2026 füel. · Comida real para tu semana</span><span>Buenos Aires, Argentina</span></div>
+      <div class="footer-bottom">
+        <span>© 2026 füel.${L.razonSocial ? ' · ' + L.razonSocial : ''}${L.cuit ? ' · CUIT ' + L.cuit : ''}</span>
+        <nav aria-label="Legales"><a href="terminos.html">Términos y condiciones</a><a href="privacidad.html">Privacidad</a><a href="arrepentimiento.html" style="color:var(--fuel-matcha); font-weight:600">Botón de arrepentimiento</a>${L.dataFiscalUrl ? '<a href="' + L.dataFiscalUrl + '" target="_blank" rel="noopener">Data fiscal</a>' : ''}</nav>
+      </div>
     </div>
   </footer>`;
 

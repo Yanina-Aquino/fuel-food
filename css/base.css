@@ -49,7 +49,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 .newsletter input { flex: 1; min-width: 0; min-height: 52px; padding: 0 18px; border-radius: var(--radius-pill); border: 1px solid rgba(251,249,246,.24); background: #2C3022; color: var(--fuel-cream); font: 16px var(--font-sans); }
 .newsletter input::placeholder { color: #A8AD97; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 24px; margin-top: 64px; padding-top: 24px; border-top: 1px solid rgba(251,249,246,.14); font-size: 13px; color: #A8AD97; }
-.footer-bottom nav { display: flex; gap: 24px; }
+.footer-bottom nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.footer-bottom a { color: #D9D4C8; } .footer-bottom a:hover { color: var(--fuel-cream); }
 
 @media (max-width: 860px) {
   .nav, .header-actions .link-login { display: none; }

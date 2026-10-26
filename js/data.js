@@ -38,5 +38,13 @@ window.FUEL = {
     { name: 'GBA Oeste', areas: 'Morón, Haedo, Ramos Mejía, Castelar, Ituzaingó', days: 'Martes', cp: [[1700, 1714]] },
     { name: 'GBA Sur', areas: 'Avellaneda, Lanús, Lomas de Zamora, Quilmes', days: 'Viernes', cp: [[1824, 1834], [1870, 1879]] }
   ],
-  slots: ['9:00 a 13:00', '13:00 a 17:00', '17:00 a 21:00']
+  slots: ['9:00 a 13:00', '13:00 a 17:00', '17:00 a 21:00'],
+  // Datos del negocio. Completalos y se muestran solos en el footer y en las páginas legales.
+  legal: {
+    razonSocial: '',   // ej. 'Fuel Food S.R.L.'
+    cuit: '',          // ej. '30-12345678-9'
+    domicilio: '',     // domicilio legal
+    email: 'hola@fuel.com.ar',
+    dataFiscalUrl: ''  // link del QR de Data Fiscal (ARCA)
+  }
 };

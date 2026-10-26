@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidad · füel.</title>
+<meta name="description" content="Cómo usamos y protegemos tus datos.">
+<meta property="og:title" content="Política de privacidad · füel.">
+<meta property="og:image" content="https://fuel-food.netlify.app/img/hero-caja.jpg">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="privacidad">
+<div id="site-header"></div>
+<main class="container" style="padding-bottom:96px">
+  <div class="page-head"><span class="overline">Legales</span><h1>Política de privacidad</h1><p>Te contamos qué datos pedimos, para qué los usamos y cómo podés gestionarlos.</p><p class="mono muted" style="font-size:12px">Última actualización: octubre 2026</p></div>
+  <article class="legal" style="max-width:760px; display:flex; flex-direction:column; gap:32px">
+    <section style="display:flex; flex-direction:column; gap:10px"><h2 style="font-size:22px; letter-spacing:-.015em">1. Qué datos pedimos</h2><p class="muted">Nombre, apellido, email, teléfono y dirección de entrega. Los datos de tarjeta los procesa la pasarela de pago: nosotros no los guardamos.</p></section>
+    <section style="display:flex; flex-direction:column; gap:10px"><h2 style="font-size:22px; letter-spacing:-.015em">2. Para qué los usamos</h2><p class="muted">Para preparar y entregar tus pedidos, avisarte el estado de la entrega, gestionar tu suscripción y responder tus consultas. Solo te enviamos novedades si te suscribís al newsletter.</p></section>
+    <section style="display:flex; flex-direction:column; gap:10px"><h2 style="font-size:22px; letter-spacing:-.015em">3. Con quién los compartimos</h2><p class="muted">Solo con quienes hacen posible el servicio: el procesador de pagos y el servicio de logística. Nunca los vendemos.</p></section>
+    <section style="display:flex; flex-direction:column; gap:10px"><h2 style="font-size:22px; letter-spacing:-.015em">4. Tus derechos</h2><p class="muted">Podés acceder, rectificar o pedir la eliminación de tus datos en cualquier momento escribiéndonos desde Contacto, conforme a la Ley 25.326 de Protección de Datos Personales. La Agencia de Acceso a la Información Pública es el órgano de control de esta ley.</p></section>
+    <section style="display:flex; flex-direction:column; gap:10px"><h2 style="font-size:22px; letter-spacing:-.015em">5. Datos en tu navegador</h2><p class="muted">El sitio guarda en tu navegador el contenido de tu caja y tu sesión para que no pierdas lo que elegiste. Podés borrarlo desde la configuración de tu navegador.</p></section>
+    <p class="muted" data-legal-id></p>
+  </article>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/send.js"></script>
+<script>
+const L = FUEL.legal, el = document.querySelector('[data-legal-id]');
+el.textContent = [L.razonSocial, L.cuit && 'CUIT ' + L.cuit, L.domicilio, L.email].filter(Boolean).join(' · ');
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Botón de arrepentimiento · füel.</title>
+<meta name="description" content="Revocá tu compra dentro de los 10 días de recibida.">
+<meta property="og:title" content="Botón de arrepentimiento · füel.">
+<meta property="og:image" content="https://fuel-food.netlify.app/img/hero-caja.jpg">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="arrepentimiento">
+<div id="site-header"></div>
+<main class="container" style="padding-bottom:96px">
+  <div class="page-head"><span class="overline">Botón de arrepentimiento</span><h1>Revocá tu compra</h1><p>Tenés 10 días corridos desde que recibiste tu caja para arrepentirte de la compra, sin dar explicaciones. Completá el formulario y te confirmamos por mail con un código de trámite.</p></div>
+  <form class="card" name="arrepentimiento" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="form" style="max-width:760px">
+    <input type="hidden" name="form-name" value="arrepentimiento"><p hidden aria-hidden="true"><label>No completar <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+    <div class="fields"><div class="field"><label for="nombre">Nombre y apellido</label><input id="nombre" name="nombre" type="text" data-rules="required" autocomplete="name"></div><div class="field"><label for="email">Email de la compra</label><input id="email" name="email" type="email" data-rules="required email" autocomplete="email"></div><div class="field field--6"><label for="orden">Número de orden</label><input id="orden" name="orden" type="text" data-rules="required"></div></div>
+    <p class="note" data-ok tabindex="-1" role="status" hidden>Recibimos tu pedido de revocación. En las próximas 24 horas te mandamos por mail el código de trámite y los pasos a seguir.</p>
+    <p class="form-msg form-msg--error" data-err role="alert" hidden>No pudimos enviarlo. Probá de nuevo o escribinos a hola@fuel.com.ar.</p>
+    <button type="submit" class="btn btn--primary btn--lg" style="align-self:flex-start">Revocar mi compra</button>
+  </form>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/send.js"></script>
+<script>
+bindSend(document.getElementById('form'));
+</script>
+</body>
+</html>
